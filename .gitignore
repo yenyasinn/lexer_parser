@@ -1,0 +1,55 @@
+# Ignore configuration files that may contain sensitive information.
+.idea
+.vagrant
+backup
+index.html
+
+# Ignore binaries.
+/bin
+
+# Ignore non-custom parts of Drupal.
+/docroot/core
+/docroot/modules/contrib
+/docroot/profiles/contrib
+/docroot/themes/contrib
+/docroot/sites/default/files
+/docroot/.csslintrc
+/docroot/.editorconfig
+/docroot/.eslintignore
+/docroot/.eslintrc
+/docroot/.gitattributes
+/docroot/.htaccess
+/docroot/autoload.php
+/docroot/index.php
+/docroot/robots.txt
+/docroot/sites/default/default.services.yml
+/docroot/sites/default/default.settings.php
+/docroot/sites/default/services.yml
+/docroot/sites/development.services.yml
+/docroot/sites/example.settings.local.php
+/docroot/sites/example.sites.php
+/docroot/update.php
+/docroot/web.config
+
+#Ignore local settings.
+settings.local.php
+
+# Ignore Composer-managed dependencies.
+## Other
+drush
+vendor
+node_modules
+docroot/_ignore
+
+## OS specific mess.
+Thumbs.db
+.DS_Store
+
+## eclipse
+.project
+.buildpath
+/.settings
+
+## NetBeans
+nbproject
+
