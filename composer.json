@@ -1,60 +1,65 @@
 {
-    "name": "yenyasinn/lexer_parser",
-    "description": "Lexer Parser for Drupal 8",
+    "name": "acquia/blt-project",
+    "description": "Project template for Drupal 8 sites built with BLT.",
     "type": "project",
-    "license": "GPL-2.0+",
-    "authors": [
-        {
-            "name": "Evgenii G Nikitin",
-            "role": ""
-        }
-    ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packages.drupal.org/8"
-        },
-    ],
-    "require": {
-        "composer/installers": "^1.0",
-        "drupal-composer/drupal-scaffold": "^2.0.0",
-        "cweagans/composer-patches": "^1.5.0",
-        "drupal/core": "8.*",
-        "drupal/devel": "1.*@dev",
-        "drupal/admin_toolbar": "1.*@dev",
-    },
-    "require-dev": {
-        "neronmoon/scriptsdev": "^0.1.0",
-        "drush/drush": "~9.0",
-        "drupal/drupal-extension": "^3.2",
-        "phpunit/phpunit": "7.*",
-        "symfony/css-selector": "~2.8",
-        "squizlabs/php_codesniffer": "2.*",
-    },
-    "conflict": {
-        "drupal/drupal": "*"
-    },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "require": {
+        "acquia/blt": "^9.2.0"
+    },
+    "require-dev": {
+        "geerlingguy/drupal-vm": "^4.8"
+    },
     "config": {
-      "bin-dir": "bin/"
+        "sort-packages": true
     },
     "extra": {
-        "scripts-dev": {
-            "post-install-cmd": [
-              "sh ./scripts/tools/setup.sh"
+        "enable-patching": true,
+        "installer-types": [
+            "bower-asset",
+            "npm-asset"
+        ],
+        "installer-paths": {
+            "docroot/core": [
+                "type:drupal-core"
+            ],
+            "docroot/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "docroot/modules/custom/{$name}": [
+                "type:drupal-custom-module"
+            ],
+            "docroot/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "docroot/profiles/custom/{$name}": [
+                "type:drupal-custom-profile"
+            ],
+            "docroot/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "docroot/themes/custom/{$name}": [
+                "type:drupal-custom-theme"
+            ],
+            "docroot/libraries/{$name}": [
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
+            ],
+            "drush/Commands/{$name}": [
+                "type:drupal-drush"
             ]
         },
-        "installer-paths": {
-            "docroot/core": ["type:drupal-core"],
-            "docroot/modules/contrib/{$name}": ["type:drupal-module"],
-            "docroot/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "docroot/themes/contrib/{$name}": ["type:drupal-theme"],
-            "docroot/libraries/{$name}": ["type:drupal-library"],
-            "drush/contrib/{$name}": ["type:drupal-drush"]
-        },
-        "patches": {
-        },
-        "enable-patching": true
+        "merge-plugin": {
+            "require": [
+                "blt/composer.required.json",
+                "blt/composer.suggested.json"
+            ],
+            "merge-extra": true,
+            "merge-extra-deep": true,
+            "merge-scripts": true,
+            "replace": false,
+            "ignore-duplicates": true
+        }
     }
 }

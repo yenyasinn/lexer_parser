@@ -1,0 +1,6 @@
+local:
+    root: /var/www/lexer_parser/docroot
+    uri: 'http://local.lexer_parser.com'
+    host: local.lexer_parser.com
+    user: vagrant
+    ssh: { options: '-o PasswordAuthentication=no -i $HOME/.vagrant.d/insecure_private_key' }

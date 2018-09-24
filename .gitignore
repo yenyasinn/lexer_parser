@@ -1,55 +1,136 @@
 # Ignore configuration files that may contain sensitive information.
-.idea
-.vagrant
-backup
-index.html
+local.settings.php
+local.drush.yml
+local.site.yml
+local.services.yml
+tests/behat/local.yml
+box/local.config.yml
+*.local
+local.blt.yml
 
-# Ignore binaries.
-/bin
+# Ignore drupal core.
+docroot/core
 
-# Ignore non-custom parts of Drupal.
-/docroot/core
-/docroot/modules/contrib
-/docroot/profiles/contrib
-/docroot/themes/contrib
-/docroot/sites/default/files
-/docroot/.csslintrc
-/docroot/.editorconfig
-/docroot/.eslintignore
-/docroot/.eslintrc
-/docroot/.gitattributes
-/docroot/.htaccess
-/docroot/autoload.php
-/docroot/index.php
-/docroot/robots.txt
-/docroot/sites/default/default.services.yml
-/docroot/sites/default/default.settings.php
-/docroot/sites/default/services.yml
-/docroot/sites/development.services.yml
-/docroot/sites/example.settings.local.php
-/docroot/sites/example.sites.php
-/docroot/update.php
-/docroot/web.config
+# Ignore paths that contain user-generated content.
+docroot/sites/*/files
+/files-private
+docroot/sites/*/private
 
-#Ignore local settings.
-settings.local.php
+# Ignore contrib modules. These should be created during build process.
+docroot/modules/contrib
+docroot/themes/contrib
+docroot/profiles/contrib
+docroot/libraries
+drush/Commands
 
-# Ignore Composer-managed dependencies.
-## Other
-drush
-vendor
-node_modules
-docroot/_ignore
+# Ignore custom theme build artifacts
+docroot/themes/custom/*/node_modules
+docroot/themes/custom/*/css
+docroot/themes/custom/*/styleguide
 
-## OS specific mess.
-Thumbs.db
+# Ignore build artifacts
+deployment_identifier
+/deploy
+bin/*
+tmp
+reports
+
+# OS X
 .DS_Store
+.AppleDouble
+.LSOverride
 
-## eclipse
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Eclipse
+*.pydevproject
 .project
-.buildpath
-/.settings
+.metadata
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
 
-## NetBeans
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpathk
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# User-specific stuff:
+.idea/
+
+#XHProf
+xhprof_*
+
+#Composer vendor
+vendor/
+vendor/.git
+
+#Sass
+.sass-cache
+*.css.map
+
+#Netbeans IDE
 nbproject
+nbproject/*
 
+# DrupalVM
+.vagrant/
+
+# DevDesktop
+*.dd
+
+#Exports
+*.gz
+*.sql
+*.zip
+
+# PHPStorm
+atlassian-ide-plugin.xml
+
+#NPM
+npm-debug.log
+
+# Drush 9 Checksums
+drush/sites/.checksums
+
+# Deprecation detector rules
+.rules
