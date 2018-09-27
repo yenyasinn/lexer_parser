@@ -1,0 +1,4 @@
+name: Lexer parser
+type: module
+description: 'Mathematical Lexer & Parser service.'
+core: '8.x'
