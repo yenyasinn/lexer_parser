@@ -1,0 +1,3 @@
+services:
+  lexer_paxer:
+    class: \Drupal\lexer_parser\LexerParserService

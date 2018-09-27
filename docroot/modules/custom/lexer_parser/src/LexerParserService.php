@@ -27,13 +27,6 @@ class LexerParserService {
   protected $priorityHigh = ['*', '/'];
 
   /**
-   * Operators that are calculated after high prioritized.
-   *
-   * @var array
-   */
-  protected $priorityNormal = ['+', '-'];
-
-  /**
    * Compute mathematical expression.
    */
   public function compute($input) {
@@ -136,14 +129,14 @@ class LexerParserService {
    * Checks what operator is more prioritized.
    */
   protected function checkPriority($operator_1, $operator_2) {
-    return $this->getPriority($operator_1) > $this->getPriority($operator_2);
+    return $this->getPriority($operator_1) >= $this->getPriority($operator_2);
   }
 
   /**
    * Gets priority of operator.
    */
   protected function getPriority($val) {
-    if (in_array($val, $this->priority_high)) {
+    if (in_array($val, $this->priorityHigh)) {
       return 1;
     }
 
