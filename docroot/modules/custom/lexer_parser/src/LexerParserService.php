@@ -36,6 +36,20 @@ class LexerParserService {
   }
 
   /**
+   * Text sanitizing.
+   *
+   * @var string $input
+   *   Input data.
+   *
+   * @return string
+   *   Cleaned string.
+   */
+  public function sanitize($input) {
+    $input = trim(strip_tags($input));
+    return str_replace('&nbsp;', '', $input);
+  }
+
+  /**
    * Parse input string.
    *
    * @var string $input
@@ -47,7 +61,7 @@ class LexerParserService {
    * @return array
    *   List of numbers and operators
    */
-  protected function parse($input) {
+  public function parse($input) {
     while (trim($input) !== '') {
       if (!preg_match($this->pattern, $input, $match)) {
         // Syntax error.
@@ -71,6 +85,17 @@ class LexerParserService {
       }
 
       $result[] = $value;
+    }
+
+    if (!is_numeric($result[0]) && $result[0] != '-') {
+      throw new \Exception('Mathematical expression can not been 
+      started by operator');
+    }
+
+    $last_element = end($result);
+    if (!is_numeric($last_element)) {
+      throw new \Exception('Mathematical expression can not been
+        finished by operator');
     }
 
     return $result;
@@ -198,7 +223,7 @@ class LexerParserService {
           $result = $val1 / $val2;
         }
         else {
-          throw new \Exception('Division on zero');
+          throw new \Exception('Division by zero');
         }
     }
 
