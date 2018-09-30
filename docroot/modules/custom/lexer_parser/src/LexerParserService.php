@@ -44,7 +44,7 @@ class LexerParserService {
    * @return string
    *   Cleaned string.
    */
-  public function sanitize($input) {
+  protected function sanitize($input) {
     $input = trim(strip_tags($input));
     return str_replace('&nbsp;', '', $input);
   }
@@ -62,6 +62,8 @@ class LexerParserService {
    *   List of numbers and operators
    */
   public function parse($input) {
+    $input = $this->sanitize($input);
+
     while (trim($input) !== '') {
       if (!preg_match($this->pattern, $input, $match)) {
         // Syntax error.
@@ -107,7 +109,7 @@ class LexerParserService {
    *
    * Https://en.wikipedia.org/wiki/Shunting-yard_algorithm.
    */
-  protected function shunting($data) {
+  public function shunting($data) {
     $stack = [];
     $queue = [];
 

@@ -84,6 +84,15 @@ BLT uses a number of configuration (`.yml` or `.json`) files to define and custo
 * `drush/sites` (contains Drush aliases for this project)
 * `composer.json` (includes required components, including Drupal Modules, for this project)
 
+### Run tests
+
+If project's Vagrant is used please run
+`blt tests:phpunit:run`
+
+or you can run PHPUnit from `docroot` folder:
+
+`../vendor/bin/phpunit -c core modules/custom/lexer_parser/tests/src/Unit `
+
 ## Resources
 
 * JIRA - #JIRA_URL

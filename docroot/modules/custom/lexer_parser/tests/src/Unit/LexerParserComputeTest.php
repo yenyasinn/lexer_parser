@@ -8,7 +8,7 @@ use Drupal\lexer_parser\LexerParserService;
 /**
  * @coversDefaultClass \Drupal\lexer_parser\LexerParserService
  */
-class LexerParserParseTest extends UnitTestCase {
+class LexerParserComputeTest extends UnitTestCase {
 
   /**
    * Testing class.
@@ -27,21 +27,21 @@ class LexerParserParseTest extends UnitTestCase {
   }
 
   /**
-   * @covers ::parse
+   * @covers ::compute
    *
-   * @dataProvider providerStrings
+   * @dataProvider providerCompute
    *
    * @throws \Exception
    *   Thrown if no result of syntax error.
    *
-   * @param string $string
+   * @param string $input
    *   String with mathematical expression.
    *
-   * @param array $result
-   *   The expected parsed array.
+   * @param mixed $result
+   *   The expected result.
    */
-  public function testParse($string, array $result) {
-    $this->assertSame($result, $this->lexerParserService->parse($string));
+  public function testCompute($input, $result) {
+    $this->assertSame($result, $this->lexerParserService->compute($input));
   }
 
   /**
@@ -50,44 +50,41 @@ class LexerParserParseTest extends UnitTestCase {
    * @return array
    *   An array of test data.
    */
-  public function providerStrings() {
+  public function providerCompute() {
     return [
-      ['1 + 1 + 1 - 1 - 1', ['1', '+', '1', '+', '1', '-', '1', '-', '1']],
-      ['8 / 2 / 2 / 2', ['8', '/', '2', '/', '2', '/', '2']],
-      ['256.34 * 3 - 23 / 6', ['256.34', '*', '3', '-', '23', '/', '6']],
-      ['-1 + 1', ['-', '1', '+', '1']],
+      ['1 + 1 + 1 - 1 - 1', 1],
+      ['8 / 2 / 2 / 2', 1],
+      ['256.34 * 3 - 23 / 6', 765.18666666667],
+      ['-1 + 1', 0],
     ];
   }
 
   /**
-   * @covers ::parse
+   * @covers ::compute
    *
-   * @dataProvider providerSyntaxError
+   * @dataProvider providerDivisionByZero
    *
    * @throws \Exception
-   *   Thrown if no result of syntax error.
+   *   Thrown if division by zero.
    *
    * @param string $string
    *   String with mathematical expression.
    */
-  public function testSyntaxError($string) {
+  public function testDivisionByZero($string) {
     $this->setExpectedException(\Exception::class);
-    $this->lexerParserService->parse($string);
+    $this->lexerParserService->compute($string);
   }
 
   /**
-   * Provides data for testSyntaxError.
+   * Provides data for testDivisionByZero.
    *
    * @return array
    *   An array of test data.
    */
-  public function providerSyntaxError() {
+  public function providerDivisionByZero() {
     return [
-      ['some string'],
-      ['1 + d + 1'],
-      ['5,12'],
-      ['* 8 + 1'],
-      ['8+1*'],
+      ['10 / 0'],
+      ['5 + 3 / 0'],
     ];
   }
 
