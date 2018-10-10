@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function lexer_parser_theme($existing, $type, $theme, $path) {
+  return [
+    'lexer_parser_math_parser' => [
+      'variables' => [
+        'expression' => '',
+        'result' => '',
+        'attributes' => [],
+      ],
+    ],
+  ];
+}

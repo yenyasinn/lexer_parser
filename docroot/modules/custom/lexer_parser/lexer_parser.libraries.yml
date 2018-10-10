@@ -1,0 +1,6 @@
+math_parser:
+  version: VERSION
+  js:
+    js/lexer_parser.js: {}
+  dependencies:
+    - core/jquery

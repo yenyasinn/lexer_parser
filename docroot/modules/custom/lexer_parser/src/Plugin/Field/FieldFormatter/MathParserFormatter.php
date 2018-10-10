@@ -6,6 +6,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Template\Attribute;
 use Drupal\lexer_parser\LexerParserService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -80,6 +81,7 @@ class MathParserFormatter extends FormatterBase implements ContainerFactoryPlugi
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
+    $attributes = new Attribute();
 
     foreach ($items as $delta => $item) {
       $value = strip_tags($item->value);
@@ -88,10 +90,17 @@ class MathParserFormatter extends FormatterBase implements ContainerFactoryPlugi
       }
       catch (\Exception $e) {
         $result = $e->getMessage();
+        $attributes->setAttribute('class', 'form-item--error-message');
       }
 
       $elements[$delta] = [
-        '#markup' => $value . ' ' . $result,
+        '#theme' => 'lexer_parser_math_parser',
+        '#expression' => $value,
+        '#result' => $result,
+        '#attributes' => $attributes,
+        '#attached' => [
+          'library' => ['lexer_parser/math_parser'],
+        ],
       ];
     }
 
