@@ -1,101 +1,37 @@
-# My Project
+# Decoupled Drupal with GraphQL and React
 
-A brief description of My Project.
+## Prerequisites
 
-## Using This Template
+- Docker
+- amazee.io/Lagoon local Docker development environment (http://lagoon.readthedocs.io/en/latest/using_lagoon/local_development_environments/)
 
-Remove this section after initial setup!
+## Usage
 
-Search for and replace the following placeholders within this file:
+First, you need to clone this repository.
 
-| Placeholder | Example |
-| --- | --- |
-| `#ACQUIA_CLOUD_URL` | https://cloud.acquia.com/app/develop/applications/12345678-1234-1234-12345678901234567 |
-| `#GIT_PRIMARY_DEV_BRANCH` | `master` or `develop` |
-| `#GITHUB_ORG` | The "org" in https://github.com/org/project |
-| `#GITHUB_PROJECT` | The "project" in https://github.com/org/project |
-| `#JIRA_URL` | https://org.atlassian.net/projects/PROJ |
-| `#LOCAL_DEV_SITE_ALIAS` | `@example.local` |
-| `#LOCAL_DEV_URL` | http://local.example.com/ |
-| `#TRAVIS_URL` | https://travis-ci.com/org/PROJ |
+    git clone git@github.com:drupal-graphql/drupal-decoupled-app.git
 
-## Getting Started
+Then, you need to build the images
 
-This project is based on BLT, an open-source project template and tool that enables building, testing, and deploying Drupal installations following Acquia Professional Services best practices. While this is one of many methodologies, it is our recommended methodology. 
+    docker-compose build
 
-1. Review the [Required / Recommended Skills](http://blt.readthedocs.io/en/latest/readme/skills) for working with a BLT project.
-1. Ensure that your computer meets the minimum installation requirements (and then install the required applications). See the [System Requirements](http://blt.readthedocs.io/en/latest/INSTALL/#system-requirements).
-1. Request access to organization that owns the project repo in GitHub (if needed).
-1. Fork the project repository in GitHub.
-1. Request access to the Acquia Cloud Environment for your project (if needed).
-1. Setup a SSH key that can be used for GitHub and the Acquia Cloud (you CAN use the same key).
-    1. [Setup GitHub SSH Keys](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/)
-    1. [Setup Acquia Cloud SSH Keys](https://docs.acquia.com/acquia-cloud/ssh/generate)
-1. Clone your forked repository. By default, Git names this "origin" on your local.
-    ```
-    $ git clone git@github.com:<account>/#GITHUB_PROJECT.git
-1. To ensure that upstream changes to the parent repository may be tracked, add the upstream locally as well.
-    ```
-    $ git remote add upstream git@github.com:#GITHUB_ORG/#GITHUB_PROJECT.git
-    ```
-1. Install Composer Dependencies. (Warning: this can take some time based on internet speeds.)
-    ```
-    $ composer install
-    ```
-1. Setup local environment.
+Then, start the containers:
 
-    BLT requires "some sort" of local environment that implements a LAMP stack. While we provide out of the box templates for Drupal VM, if you prefer you can use another tool such as Docker, Docksal, Lando, (other) Vagrant, or your own custom LAMP stack. BLT works with any local environment, however support is limited for these solutions.
 
-    For instructions on setting up Drupal VM, [read our documentation here](http://blt.readthedocs.io/en/9.x/readme/local-development/#using-drupal-vm-for-blt-generated-projects).
+    docker-compose up -d
 
-1. Run the initial setup:
-    ```
-    $ vagrant ssh
-    $ blt setup
-    ```
-1. Access the site and do necessary work at #LOCAL_DEV_URL by running this:
-    ```
-    $ drush uli
-    ```
+Once started, connect to the cli container of Drupal and install Drupal.
 
-Additional [BLT documentation](http://blt.readthedocs.io) may be useful. You may also access a list of BLT commands by running this:
-```
-$ blt
-``` 
+    docker-compose exec cli bash
+    composer install
+    drush si config_installer -y --account-name=admin --account-pass=admin
 
-Note the following properties of this project:
-* Primary development branch: #GIT_PRIMARY_DEV_BRANCH
-* Local environment: #LOCAL_DEV_SITE_ALIAS
-* Local site URL: #LOCAL_DEV_URL
+Now you can create some content (basic page or article) within Drupal at http://drupal-varnish.drupal-decoupled-app.docker.amazee.io
 
-## Working With a BLT Project
+Navigating to http://drupal-decoupled-app.docker.amazee.io should present you with a paginated list of articles
+and by navigation to the path of one of the nodes (basic page or article) you just
+created, you should see a simple teaser of that node.
 
-BLT projects are designed to instill software development best practices (including git workflows). 
+## License
 
-Our BLT Developer documentation includes an [example workflow](http://blt.readthedocs.io/en/latest/readme/dev-workflow/#workflow-example-local-development).
-
-### Important Configuration Files
-
-BLT uses a number of configuration (`.yml` or `.json`) files to define and customize behaviors. Some examples of these are:
-
-* `blt/blt.yml` (formerly blt/project.yml prior to BLT 9.x)
-* `blt/local.blt.yml`
-* `box/config.yml` (if using Drupal VM)
-* `drush/sites` (contains Drush aliases for this project)
-* `composer.json` (includes required components, including Drupal Modules, for this project)
-
-### Run tests
-
-If project's Vagrant is used please run
-`blt tests:phpunit:run`
-
-or you can run PHPUnit from `docroot` folder:
-
-`../vendor/bin/phpunit -c core modules/custom/lexer_parser/tests/src/Unit `
-
-## Resources
-
-* JIRA - #JIRA_URL
-* GitHub - https://github.com/#GITHUB_ORG/#GITHUB_PROJECT
-* Acquia Cloud subscription - #ACQUIA_CLOUD_URL
-* TravisCI - #TRAVIS_URL
+This project is licensed under the MIT license, Copyright (c) 2016 Sebastian Siemssen. For more information see LICENSE.md.

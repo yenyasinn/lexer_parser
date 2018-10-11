@@ -1,0 +1,19 @@
+
+# Generated stuff
+coverage
+dist
+
+# dependencies
+node_modules
+
+# environment
+.env*
+!.env.defaults
+!.env.schema
+
+# logs
+*.log*
+
+# idea
+.idea
+*.iml
