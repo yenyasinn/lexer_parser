@@ -26,8 +26,11 @@ Once started, connect to the cli container of Drupal and install Drupal.
     drush si config_installer -y --account-name=admin --account-pass=admin
 
 Site will be available by address http://drupal-varnish.drupal-decoupled-app.docker.amazee.io.
+
 You can login using http://drupal-varnish.drupal-decoupled-app.docker.amazee.io/user 
+
 Login: admin
+
 Password: admin
 
 ## Lexer & Parser service.
