@@ -1,22 +1,21 @@
-# Decoupled Drupal with GraphQL and React
+# Lexer & Parser service with field formatter for Drupal 8
 
 ## Prerequisites
 
 - Docker
 - amazee.io/Lagoon local Docker development environment (http://lagoon.readthedocs.io/en/latest/using_lagoon/local_development_environments/)
 
-## Usage
+## Installation
 
 First, you need to clone this repository.
 
-    git clone git@github.com:drupal-graphql/drupal-decoupled-app.git
+    git clone https://github.com/yenyasinn/lexer_parser.git
 
 Then, you need to build the images
 
     docker-compose build
 
 Then, start the containers:
-
 
     docker-compose up -d
 
@@ -26,12 +25,23 @@ Once started, connect to the cli container of Drupal and install Drupal.
     composer install
     drush si config_installer -y --account-name=admin --account-pass=admin
 
-Now you can create some content (basic page or article) within Drupal at http://drupal-varnish.drupal-decoupled-app.docker.amazee.io
+Site will be available by address http://drupal-varnish.drupal-decoupled-app.docker.amazee.io.
 
-Navigating to http://drupal-decoupled-app.docker.amazee.io should present you with a paginated list of articles
-and by navigation to the path of one of the nodes (basic page or article) you just
-created, you should see a simple teaser of that node.
+## Lexer & Parser service.
 
-## License
+Now you can create Article page within Drupal.
 
-This project is licensed under the MIT license, Copyright (c) 2016 Sebastian Siemssen. For more information see LICENSE.md.
+Put in Body field of Article node any mathematical expression that uses basic operators (+, -, *, /).
+
+E.g.: “10 + 20 - 30 + 15 * 5”
+
+## PHP Unit tests.
+
+To run PHP Unit tests that cover Lexer & Parser service run:
+
+    docker-compose exec cli bash
+    vendor/bin/phpunit -c web/core web/modules/custom/lexer_parser/tests/src/Unit
+  
+
+   
+
